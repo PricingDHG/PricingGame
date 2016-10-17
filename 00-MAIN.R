@@ -3,7 +3,7 @@
 ###################################################################################################
 
 # Last Update: 10/07/16
-setwd(file.path(getwd(),"02-MODELLING"))
+
 ###################################################################################################
 ## STEP 00 : LIBRARY                                                                             ##
 ###################################################################################################
@@ -36,13 +36,11 @@ library(mlr)
 source("00-Functions.R")
 source("00-DATA_MANIPULATION.R")
 
-setwd(file.path(getwd(),"02-MODELLING"))
+source("02-MODELLING/01-GLM_MODELING.R")
+source("02-MODELLING/02-GBM_MODELING.R")
+source("02-MODELLING/03-TWEEDIE_MODELING.R")
+source("02-MODELLING/04-XGBOOST_MODELING.R")
+source("02-MODELLING/05-RF_MODELING.R")
+source("02-MODELLING/06-XT_MODELING.R")
 
-source("01-GLM_MODELING.R")
-source("02-GBM_MODELING.R")
-source("03-TWEEDIE_MODELING.R")
-source("04-XGBOOST_MODELING.R")
-source("05-RF_MODELING.R")
-source("06-XT_MODELING.R")
-
-source("99-BLENDING.R")
+source("02-MODELLING/99-BLENDING.R")
