@@ -59,7 +59,7 @@ PRED_FINAL %<>%
 ## STEP 05 : ERROR MEASURES                                                                         ##
 ###################################################################################################
 
-#Notre modèle
+#Notre mod?le
 ineq(PRED_FINAL$FINAL)
 rmse(base_test$CHARGE_SINISTRE,PRED_FINAL$FINAL)
 our_mape(base_test$CHARGE_SINISTRE,PRED_FINAL$FINAL)
@@ -68,7 +68,7 @@ summary(PRED_FINAL$FINAL)
 
 #PRED_FINAL %>% ggplot() + geom_point(aes(x=GLM,y=RF))
 
-#Modèle naïf
+#Mod?le na?f
 ineq(mean(base_test$CHARGE_SINISTRE))
 rmse(base_test$CHARGE_SINISTRE,mean(base_test$CHARGE_SINISTRE))
 our_mape(base_test$CHARGE_SINISTRE,mean(base_test$CHARGE_SINISTRE))
@@ -103,6 +103,83 @@ result<-data.frame(NAIF = c(ineq(mean(base_test$CHARGE_SINISTRE)),
                            rmse(base_test$CHARGE_SINISTRE,PRED_FINAL$FINAL),
                            our_mape(base_test$CHARGE_SINISTRE,PRED_FINAL$FINAL)))
 
+
+###################################################################################################
+## STEP 05 : Compare mean                                                                         ##
+###################################################################################################
+
+base_test %<>%
+  mutate(PRED_FINAL_= PRED_FINAL$FINAL,
+         PRED_GLM   = PRED_FINAL$GLM,
+         PRED_XGB   = PRED_FINAL$XGB,
+         PRED_RF    = PRED_FINAL$RF,
+         PRED_XT    = PRED_FINAL$XT)
+
+#Classe_Age_Situ_Cont
+base_test %>%
+  dplyr::select(Classe_Age_Situ_Cont,
+                PRED_FINAL_,
+                PRED_GLM,
+                PRED_XGB,
+                PRED_RF,
+                PRED_XT,
+                CHARGE_SINISTRE) %>%
+  group_by(Classe_Age_Situ_Cont) %>%
+  summarize_each(funs(mean)) %>%
+    
+  ggplot() +
+  geom_bar(aes(x=Classe_Age_Situ_Cont,y=CHARGE_SINISTRE), stat="identity", fill="cornflowerblue") +
+  
+  geom_point(aes(x=Classe_Age_Situ_Cont,y=PRED_FINAL_ , color="PRED_FINAL_")) +
+  geom_line(aes(x=Classe_Age_Situ_Cont,y=PRED_FINAL_, group=1 , color="PRED_FINAL_")) +
+  
+  geom_point(aes(x=Classe_Age_Situ_Cont,y=PRED_GLM, color="PRED_GLM")) +
+  geom_line(aes(x=Classe_Age_Situ_Cont,y=PRED_GLM, group=1, color="PRED_GLM")) +
+  
+  geom_point(aes(x=Classe_Age_Situ_Cont,y=PRED_XGB, color="PRED_XGB")) +
+  geom_line(aes(x=Classe_Age_Situ_Cont,y=PRED_XGB, group=1, color="PRED_XGB")) +
+  
+  geom_point(aes(x=Classe_Age_Situ_Cont,y=PRED_RF, color="PRED_RF")) +
+  geom_line(aes(x=Classe_Age_Situ_Cont,y=PRED_RF, group=1, colour="PRED_RF")) +
+  
+  geom_point(aes(x=Classe_Age_Situ_Cont,y=PRED_XT, color="PRED_XT")) +
+  geom_line(aes(x=Classe_Age_Situ_Cont,y=PRED_XT, group=1, color="PRED_XT")) +
+
+  ggtitle("Comparaison des moyennes par groupe")
+
+
+
+#Creation_Entr
+base_test %>%
+  dplyr::select(Creation_Entr,
+                PRED_FINAL_,
+                PRED_GLM,
+                PRED_XGB,
+                PRED_RF,
+                PRED_XT,
+                CHARGE_SINISTRE) %>%
+  group_by(Creation_Entr) %>%
+  summarize_each(funs(mean)) %>%
+  
+  ggplot() +
+  geom_bar(aes(x=Creation_Entr,y=CHARGE_SINISTRE), stat="identity", fill="cornflowerblue") +
+  
+  geom_point(aes(x=Creation_Entr,y=PRED_FINAL_ , color="PRED_FINAL_")) +
+  geom_line(aes(x=Creation_Entr,y=PRED_FINAL_, group=1 , color="PRED_FINAL_")) +
+  
+  geom_point(aes(x=Creation_Entr,y=PRED_GLM, color="PRED_GLM")) +
+  geom_line(aes(x=Creation_Entr,y=PRED_GLM, group=1, color="PRED_GLM")) +
+  
+  geom_point(aes(x=Creation_Entr,y=PRED_XGB, color="PRED_XGB")) +
+  geom_line(aes(x=Creation_Entr,y=PRED_XGB, group=1, color="PRED_XGB")) +
+  
+  geom_point(aes(x=Creation_Entr,y=PRED_RF, color="PRED_RF")) +
+  geom_line(aes(x=Creation_Entr,y=PRED_RF, group=1, colour="PRED_RF")) +
+  
+  geom_point(aes(x=Creation_Entr,y=PRED_XT, color="PRED_XT")) +
+  geom_line(aes(x=Creation_Entr,y=PRED_XT, group=1, color="PRED_XT")) +
+  
+  ggtitle("Comparaison des moyennes par groupe")
 
 
 
