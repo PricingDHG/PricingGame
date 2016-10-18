@@ -24,7 +24,7 @@ base_xgb_test<-base_train[base_train$Num_contrat %in% num_contrat_test,]
 ## STEP 01 : Combine all data                                                                       ##
 ###################################################################################################
 
-combine_base     = rbind(base_xgb_train,base_xgb_test,base_test)
+combine_base     = rbind(base_xgb_train,base_xgb_test,base_test,ptf_test)
 
 combine_base %<>%
   dplyr::select(CHARGE_SINISTRE, 
@@ -49,6 +49,7 @@ sparse_matrix_combine <- sparse.model.matrix(CHARGE_SINISTRE~.-1,data = combine_
 sparse_matrix_train<-sparse_matrix_combine[1:56016,]
 sparse_matrix_test<-sparse_matrix_combine[56017:70019,]
 sparse_matrix_real_test<-sparse_matrix_combine[70020:87195,]
+sparse_matrix_ptf_test<-sparse_matrix_combine[87196:119967,]
 
 label_train<-base_xgb_train$CHARGE_SINISTRE
 label_test<-base_xgb_test$CHARGE_SINISTRE
@@ -94,12 +95,12 @@ sum(base_xgb_test$CHARGE_SINISTRE)
 ## STEP 06 : ERROR MEASURES                                                                     ##
 ###################################################################################################
 
-#Notre modèle
+#Notre modÃ¨le
 ineq(PP_pred_xgb)
 rmse(base_xgb_test$CHARGE_SINISTRE,PP_pred_xgb)
 our_mape(base_xgb_test$CHARGE_SINISTRE,PP_pred_xgb)
 
-#Modèle naïf
+#ModÃ¨le naÃ¯f
 ineq(mean(base_xgb_test$CHARGE_SINISTRE))
 rmse(base_xgb_test$CHARGE_SINISTRE,mean(base_xgb_test$CHARGE_SINISTRE))
 our_mape(base_xgb_test$CHARGE_SINISTRE,mean(base_xgb_test$CHARGE_SINISTRE))
@@ -116,12 +117,12 @@ sum(base_test$CHARGE_SINISTRE)
 ## STEP 08 : ERROR MEASURES  ON TEST                                                                   ##
 ###################################################################################################
 
-#Notre modèle
+#Notre modÃ¨le
 ineq(PP_pred_test_xgb)
 rmse(base_test$CHARGE_SINISTRE,PP_pred_test_xgb)
 our_mape(base_test$CHARGE_SINISTRE,PP_pred_test_xgb)
 
-#Modèle naïf
+#ModÃ¨le naÃ¯f
 ineq(mean(base_test$CHARGE_SINISTRE))
 rmse(base_test$CHARGE_SINISTRE,mean(base_test$CHARGE_SINISTRE))
 our_mape(base_test$CHARGE_SINISTRE,mean(base_test$CHARGE_SINISTRE))
