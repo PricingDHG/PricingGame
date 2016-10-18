@@ -115,71 +115,16 @@ base_test %<>%
          PRED_RF    = PRED_FINAL$RF,
          PRED_XT    = PRED_FINAL$XT)
 
-#Classe_Age_Situ_Cont
-base_test %>%
-  dplyr::select(Classe_Age_Situ_Cont,
-                PRED_FINAL_,
-                PRED_GLM,
-                PRED_XGB,
-                PRED_RF,
-                PRED_XT,
-                CHARGE_SINISTRE) %>%
-  group_by(Classe_Age_Situ_Cont) %>%
-  summarize_each(funs(mean)) %>%
-    
-  ggplot() +
-  geom_bar(aes(x=Classe_Age_Situ_Cont,y=CHARGE_SINISTRE), stat="identity", fill="cornflowerblue") +
-  
-  geom_point(aes(x=Classe_Age_Situ_Cont,y=PRED_FINAL_ , color="PRED_FINAL_")) +
-  geom_line(aes(x=Classe_Age_Situ_Cont,y=PRED_FINAL_, group=1 , color="PRED_FINAL_")) +
-  
-  geom_point(aes(x=Classe_Age_Situ_Cont,y=PRED_GLM, color="PRED_GLM")) +
-  geom_line(aes(x=Classe_Age_Situ_Cont,y=PRED_GLM, group=1, color="PRED_GLM")) +
-  
-  geom_point(aes(x=Classe_Age_Situ_Cont,y=PRED_XGB, color="PRED_XGB")) +
-  geom_line(aes(x=Classe_Age_Situ_Cont,y=PRED_XGB, group=1, color="PRED_XGB")) +
-  
-  geom_point(aes(x=Classe_Age_Situ_Cont,y=PRED_RF, color="PRED_RF")) +
-  geom_line(aes(x=Classe_Age_Situ_Cont,y=PRED_RF, group=1, colour="PRED_RF")) +
-  
-  geom_point(aes(x=Classe_Age_Situ_Cont,y=PRED_XT, color="PRED_XT")) +
-  geom_line(aes(x=Classe_Age_Situ_Cont,y=PRED_XT, group=1, color="PRED_XT")) +
-
-  ggtitle("Comparaison des moyennes par groupe")
-
-
-
-#Creation_Entr
-base_test %>%
-  dplyr::select(Creation_Entr,
-                PRED_FINAL_,
-                PRED_GLM,
-                PRED_XGB,
-                PRED_RF,
-                PRED_XT,
-                CHARGE_SINISTRE) %>%
-  group_by(Creation_Entr) %>%
-  summarize_each(funs(mean)) %>%
-  
-  ggplot() +
-  geom_bar(aes(x=Creation_Entr,y=CHARGE_SINISTRE), stat="identity", fill="cornflowerblue") +
-  
-  geom_point(aes(x=Creation_Entr,y=PRED_FINAL_ , color="PRED_FINAL_")) +
-  geom_line(aes(x=Creation_Entr,y=PRED_FINAL_, group=1 , color="PRED_FINAL_")) +
-  
-  geom_point(aes(x=Creation_Entr,y=PRED_GLM, color="PRED_GLM")) +
-  geom_line(aes(x=Creation_Entr,y=PRED_GLM, group=1, color="PRED_GLM")) +
-  
-  geom_point(aes(x=Creation_Entr,y=PRED_XGB, color="PRED_XGB")) +
-  geom_line(aes(x=Creation_Entr,y=PRED_XGB, group=1, color="PRED_XGB")) +
-  
-  geom_point(aes(x=Creation_Entr,y=PRED_RF, color="PRED_RF")) +
-  geom_line(aes(x=Creation_Entr,y=PRED_RF, group=1, colour="PRED_RF")) +
-  
-  geom_point(aes(x=Creation_Entr,y=PRED_XT, color="PRED_XT")) +
-  geom_line(aes(x=Creation_Entr,y=PRED_XT, group=1, color="PRED_XT")) +
-  
-  ggtitle("Comparaison des moyennes par groupe")
+plot_mean(var = "Classe_Age_Situ_Cont")
+plot_mean(var = "Mode_gestion")
+plot_mean(var = "Zone")
+plot_mean(var = "Segment")
+plot_mean(var = "Fractionnement")
+plot_mean(var = "Age_du_vehicule")
+plot_mean(var = "FORMULE")
+plot_mean(var = "Activite")
+plot_mean(var = "Type_Apporteur")
+plot_mean(var = "ValeurPuissance")
 
 
 
