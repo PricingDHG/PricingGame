@@ -130,5 +130,36 @@ plotfunc <- function(Data, xxx) {
 our_mape <- function(y, yhat)
   mean(abs(((y+1) - (yhat+1))/(y+1)))
 
-
+## ---------------------------------------------------------------------------------
+plot_mean<-function(var=var){
+  base_test %>%
+    group_by_(var) %>%
+    summarize(PRED_FINAL_     = mean(PRED_FINAL_),
+              PRED_GLM        = mean(PRED_GLM),
+              PRED_XGB        = mean(PRED_XGB),
+              PRED_RF         = mean(PRED_RF),
+              PRED_XT         = mean(PRED_XT),
+              CHARGE_SINISTRE = mean(CHARGE_SINISTRE))  %>%
+    
+    ggplot() +
+    geom_bar(aes_string(x=var,y="CHARGE_SINISTRE"), stat="identity", fill="cornflowerblue") +
+    
+    geom_point(aes_string(x=var,y="PRED_FINAL_" , color=shQuote("PRED_FINAL_"))) +
+    geom_line(aes_string(x=var,y="PRED_FINAL_", group=1 , color=shQuote("PRED_FINAL_"))) +
+    
+    geom_point(aes_string(x=var,y="PRED_GLM", color=shQuote("PRED_GLM"))) +
+    geom_line(aes_string(x=var,y="PRED_GLM", group=1, color=shQuote("PRED_GLM"))) +
+    
+    geom_point(aes_string(x=var,y="PRED_XGB", color=shQuote("PRED_XGB"))) +
+    geom_line(aes_string(x=var,y="PRED_XGB", group=1, color=shQuote("PRED_XGB"))) +
+    
+    geom_point(aes_string(x=var,y="PRED_RF", color=shQuote("PRED_RF"))) +
+    geom_line(aes_string(x=var,y="PRED_RF", group=1, colour=shQuote("PRED_RF"))) +
+    
+    geom_point(aes_string(x=var,y="PRED_XT", color=shQuote("PRED_XT"))) +
+    geom_line(aes_string(x=var,y="PRED_XT", group=1, color=shQuote("PRED_XT"))) +
+    
+    ggtitle("Comparaison des moyennes par groupe")
+  
+}
 
