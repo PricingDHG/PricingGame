@@ -26,6 +26,23 @@ ptf = train_contrats %<>% filter(FORMULE !=2) %>%
                   mutate_each_(funs(factor), l1) 
 save(ptf,file="00-DATA/ptf.Rdata")
 
+#On real test
+ptf_test = test_contrats %<>% filter(FORMULE !=2) %>%
+  mutate( KEY                  = paste(IMMAT,Date_Deb_Situ,Date_Fin_Situ,sep= "::"),
+          Exposition_au_risque = as.numeric(as.character(Exposition_au_risque)),
+          Zone                 = ifelse( Zone %in% c("5","6"),"5-6",Zone ),
+          franchise            = ifelse( franchise %in% c("1. 0","2. 1 - 200"),"1. <200",
+                                         ifelse(franchise %in% c("5. 401 - 600","6. > 600"),"5. > 401",
+                                                franchise)),
+          ValeurPuissance      = ifelse( ValeurPuissance %in% c(1,2,3),"1-2-3",
+                                         ifelse( ValeurPuissance %in% c(9,10,11),"9-10-11",
+                                                 as.character(ValeurPuissance))),
+          
+          nombre_de_sinistre   = 0,
+          NB_SINISTRE          = 0,
+          CHARGE_SINISTRE      = 0) %>%
+  mutate_each_(funs(factor), l1) 
+
 ###################################################################################################
 ## STEP 02 : CLAIMS MANIP                                                                 ##
 ###################################################################################################
