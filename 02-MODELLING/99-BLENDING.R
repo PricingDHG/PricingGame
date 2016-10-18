@@ -113,7 +113,14 @@ base_test %<>%
          PRED_GLM   = PRED_FINAL$GLM,
          PRED_XGB   = PRED_FINAL$XGB,
          PRED_RF    = PRED_FINAL$RF,
-         PRED_XT    = PRED_FINAL$XT)
+         PRED_XT    = PRED_FINAL$XT,
+         
+         cross_Classe_Age_Situ_Cont_Fractionnement  = paste(Classe_Age_Situ_Cont,Fractionnement,sep="_"),
+         cross_Classe_Age_Situ_Cont_Mode_gestion    = paste(Classe_Age_Situ_Cont,Mode_gestion,sep="_"),
+         cross_Classe_Age_Situ_Cont_Zone            = paste(Classe_Age_Situ_Cont,Zone,sep="_"),
+         cross_Classe_Age_Situ_Cont_Age_du_vehicule = paste(Classe_Age_Situ_Cont,Age_du_vehicule,sep="_"),
+         cross_Classe_Age_Situ_Cont_FORMULE         = paste(Classe_Age_Situ_Cont,FORMULE,sep="_"),
+         cross_Classe_Age_Situ_Cont_Activite        = paste(Classe_Age_Situ_Cont,Activite,sep="_"))
 
 plot_mean(var = "Classe_Age_Situ_Cont")
 plot_mean(var = "Mode_gestion")
@@ -126,5 +133,11 @@ plot_mean(var = "Activite")
 plot_mean(var = "Type_Apporteur")
 plot_mean(var = "ValeurPuissance")
 
+plot_mean(var = "cross_Classe_Age_Situ_Cont_Fractionnement")
+plot_mean(var = "cross_Classe_Age_Situ_Cont_Mode_gestion")
+plot_mean(var = "cross_Classe_Age_Situ_Cont_Zone")
+plot_mean(var = "cross_Classe_Age_Situ_Cont_Age_du_vehicule")
+plot_mean(var = "cross_Classe_Age_Situ_Cont_FORMULE")
+plot_mean(var = "cross_Classe_Age_Situ_Cont_Activite")
 
 
