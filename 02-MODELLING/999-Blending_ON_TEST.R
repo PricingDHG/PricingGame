@@ -2,8 +2,6 @@
 ######################################## PTF MANIPULATION #########################################
 ###################################################################################################
 
-setwd(file.path(getwd(),"02-MODELLING"))
-
 ###################################################################################################
 ## STEP 00 : LIBRARY                                                                             ##
 ###################################################################################################
@@ -35,13 +33,11 @@ library(glmnet)
 
 source("00-DATA_MANIPULATION.R")
 
-setwd(file.path(getwd(),"02-MODELLING"))
-
 ###################################################################################################
 ## STEP 02 : GLM                                                                            ##
 ###################################################################################################
 
-source("01-GLM_MODELING.R")
+source("02-MODELLING/01-GLM_MODELING.R")
 charge_pred  = predict(glm_claims,newdata  = ptf_test,type="response") + min_charge -1 
 nb_pred      = predict(glm_freq, newdata   = ptf_test,type="response")
 PP_pred_glm  = charge_pred* nb_pred
@@ -50,28 +46,28 @@ PP_pred_glm  = charge_pred* nb_pred
 ## STEP 02 : XGB                                                                            ##
 ###################################################################################################
 
-source("04-XGBOOST_MODELING.R")
+source("02-MODELLING/04-XGBOOST_MODELING.R")
 PP_pred_xgb = predict(train.gdbt,sparse_matrix_ptf_test)
 
 ###################################################################################################
 ## STEP 03 : RF                                                                            ##
 ###################################################################################################
 
-source("05-RF_MODELING.R")
+source("02-MODELLING/05-RF_MODELING.R")
 PP_pred_rf = predict(fit_rf,ptf_test)
 
 ###################################################################################################
 ## STEP 04 : XT                                                                            ##
 ###################################################################################################
 
-source("06-XT_MODELING.R")
+source("02-MODELLING/06-XT_MODELING.R")
 PP_pred_xt = predict(fit_xt,sparse_matrix_ptf_test)
 
 ###################################################################################################
 ## STEP 05 : BLENDING                                                                            ##
 ###################################################################################################
 
-source("99-BLENDING.R")
+source("02-MODELLING/99-BLENDING.R")
 PP_pred_blend<-coef_blend[1]*PP_pred_glm + 
                coef_blend[2]*PP_pred_xgb + 
                coef_blend[3]*PP_pred_rf + 
