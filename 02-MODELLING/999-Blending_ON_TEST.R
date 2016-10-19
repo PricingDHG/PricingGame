@@ -88,9 +88,9 @@ write.csv(Pred_DGH_2,"01-PREDICTIONS/Pred_DGH_2.csv",row.names=FALSE)
 ## STEP 07 : ANALYSIS                                                                            ##
 ###################################################################################################
 
-PRED_DGH<-data.frame(fread("01-OUTPUTS/ENVOIE_15_09/PRED_DGH.csv", dec=".", sep=","))
-base4<-data.frame(fread("99-CONCURRENTS/Base_4.csv", dec=",", sep=";"))
-base6<-data.frame(fread("99-CONCURRENTS/Base_6.csv", dec=".", sep=";"))
+PRED_DGH<-data.frame(fread("01-PREDICTIONS/PRED_DGH.csv", dec=".", sep=","))
+base4<-data.frame(fread("01-PREDICTIONS/Base_4.csv", dec=",", sep=";"))
+base6<-data.frame(fread("01-PREDICTIONS/Base_6.csv", dec=".", sep=";"))
 base6<-base6[1:15553,c(1,3)]
 PRED_DGH<-PRED_DGH[1:15553,]
 
