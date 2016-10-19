@@ -81,7 +81,8 @@ PP_pred_blend<-coef_blend[1]*PP_pred_glm +
 relevel_pred<-2350000/sum(PP_pred_blend)
 PP_pred_blend<-PP_pred_blend*relevel_pred
 
-save(PP_pred_blend,file="01-OUTPUTS/PREDICTIONS/PREDICTIONS_BLEND_ON_TEST.Rdata")
+Pred_DGH_2<-data.frame(nu_affa=c(1:32772),Premium=PP_pred_blend)
+write.csv(Pred_DGH_2,"01-PREDICTIONS/Pred_DGH_2.csv",row.names=FALSE)
 
 ###################################################################################################
 ## STEP 07 : ANALYSIS                                                                            ##

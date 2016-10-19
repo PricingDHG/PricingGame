@@ -29,7 +29,7 @@ save(ptf,file="00-DATA/ptf.Rdata")
 #On real test
 ptf_test = test_contrats %<>% filter(FORMULE !=2) %>%
   mutate( KEY                  = paste(IMMAT,Date_Deb_Situ,Date_Fin_Situ,sep= "::"),
-          Exposition_au_risque = as.numeric(as.character(Exposition_au_risque)),
+          Exposition_au_risque = 1,
           Zone                 = ifelse( Zone %in% c("5","6"),"5-6",Zone ),
           franchise            = ifelse( franchise %in% c("1. 0","2. 1 - 200"),"1. <200",
                                          ifelse(franchise %in% c("5. 401 - 600","6. > 600"),"5. > 401",
